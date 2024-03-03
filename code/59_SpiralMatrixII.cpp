@@ -27,6 +27,7 @@ public:
             // right
             for(int j = 0; j < length; j++){
                 res[i+j][i+length] = count;
+                // res[j][i+length] = count; WRONG! 注意行列都与i有关   
                 count++;
             }
 
