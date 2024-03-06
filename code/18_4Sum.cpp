@@ -80,6 +80,7 @@ public:
         vector<pair<int,int>> num_unique(num_count.begin(),num_count.end());
 
         // 边搜边加，相当于用哈希表替代两个夹逼的指针
+        // 大小关系：pair.second <= pair.first <= iter->first <= iter1->first (d <= c <= b <= a)
         unordered_map<long, list<pair<int,int>>> hash_pair;
         for (auto iter = num_unique.begin(); iter != num_unique.end(); iter++){
             
@@ -87,7 +88,7 @@ public:
             
             for(int i = 1; i <= iter->second; i++) {
                 
-                // b 只检索倒数第2和第1个位置，防止相同的(a,b)多次检索哈希表导致result重复
+                // b 只检索倒数第2和第1个位置，防止相同的(b,a)多次检索哈希表导致result重复
                 if (i >= iter->second - 1){
 
                     // 遍历a，查找合适的pair
@@ -109,12 +110,13 @@ public:
 
                 // 扩充哈希表
                 if(i == 1) {
+                    // 加入当前数值和之前数值的pair
                     for(auto iter_pair = num_unique.begin(); iter_pair != iter; iter_pair++){
                         hash_pair[iter->first + iter_pair->first].push_back(pair(iter->first, iter_pair->first));
-                        // cout << iter->first + iter_pair->first << "," << iter->first << "," << iter_pair->first << endl;
                     }
                 }
                 else if (i == 2){
+                    // 加入当前数值自身的pair
                     hash_pair[iter->first + iter->first].push_back(pair(iter->first, iter->first));
                 }
 
