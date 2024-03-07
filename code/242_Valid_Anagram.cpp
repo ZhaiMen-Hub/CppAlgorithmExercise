@@ -9,8 +9,7 @@ public:
         
         // create hash table based on string s
         int hash_tbl['z' - 'a' + 1] = {0};
-        // int len_s = s.size();
-        // int len_t = t.size();
+
         for (char letter_s : s) hash_tbl[letter_s-'a']++;
 
         // check whether s contains all letters in s
