@@ -15,7 +15,6 @@ public:
         
         sort(intervals.begin(), intervals.end(), cmp);
 
-
         vector<vector<int>> result = {intervals[0]};
         for(const auto& interval : intervals) {
             
