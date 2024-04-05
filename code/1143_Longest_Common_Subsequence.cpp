@@ -9,6 +9,7 @@ class Solution {
 public:
     int longestCommonSubsequence(string text1, string text2) {
              
+        // 兼容初始化为0
         vector<vector<int>> dp(text1.size() + 1, vector<int>(text2.size() + 1, 0));
 
         int maxLen = 0;
