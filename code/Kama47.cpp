@@ -6,13 +6,6 @@
 
 using namespace std;
 
-class MyGreater {
-public:
-    bool operator() (const pair<int, int>& l, const pair<int, int>& r) {
-        return l.first >= r.first;
-    }
-};
-
 int main(){
     int N = 7, M = 9;
     // cin >> N >> M;
@@ -21,6 +14,7 @@ int main(){
     vector<vector<pair<int, int>>> vec(N);
     vector<int> parent(N, -1);
     vector<int> minDist(N, INT_MAX);
+    vector<int> visited(N, false);
 
     // 这里是边的列表，每个元素是三个整数: 起点，终点，权重
     vector<tuple<int, int, int>> edges = {
@@ -44,6 +38,7 @@ int main(){
         cout << endl;
     }
 
+    // 输入数据
     // for(int i = 0; i < M; i++) {
     //     int srt, dst, cost;
     //     cin >> srt >> dst >> cost;
@@ -54,7 +49,7 @@ int main(){
     
     
     // queue: value, point
-    priority_queue<pair<int, int>, deque<pair<int, int>> , MyGreater> q;
+    priority_queue<pair<int, int>, deque<pair<int, int>> , greater<pair<int,int>>> q;
     // push {dis, index}
     q.push({0, 0});
 
@@ -62,6 +57,7 @@ int main(){
         // 弹出节点
         auto cur = q.top();
         const int& curIndex = cur.second, curDist = cur.first;
+        visited[curIndex] = true;
         q.pop();
         // cout << curIndex << curDist << endl;
         // cout << vec[curIndex].size() << endl;
@@ -72,7 +68,7 @@ int main(){
             const int& neighborIndex = neighbor.first, neighborDist = neighbor.second;
             // cout << neighborIndex << neighborDist << endl;
             // 如果更近就更新父节点和距离，并重新插入
-            if(curDist + neighborDist < minDist[neighborIndex]) {
+            if(visited[neighborIndex] == false && curDist + neighborDist < minDist[neighborIndex]) {
                 // cout << curDist + neighborDist <<  neighborIndex << endl;
                 q.push(pair<int,int>{curDist + neighborDist, neighborIndex});
                 minDist[neighborIndex] = curDist + neighborDist;
