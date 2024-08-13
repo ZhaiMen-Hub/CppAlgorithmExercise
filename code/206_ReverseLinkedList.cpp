@@ -36,21 +36,27 @@ void print_list(ListNode* head){
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        
-        ListNode* back = nullptr;   // pointer to the node before current node (pointed by head)
-        ListNode* temp_swap = nullptr;
-        // use head as a iterator
-        while(head != nullptr){
-            // swap: head->next <- back <- head <- head->next
-            // note that should not edit head before head->next
-            cout << head->val << endl;
-            temp_swap = head->next;
-            head->next = back;
-            back = head;
-            head = temp_swap;
+
+        ListNode* headNode = head;   
+        ListNode* nextNode = nullptr;
+        // ListNode* next2Node = nullptr;
+        ListNode* lastNode = nullptr;
+        while(headNode != nullptr){
+            
+            // save
+            nextNode = headNode->next;
+            // next2Node = headNode->next->next;
+
+            // swap
+            headNode->next = lastNode;
+            // headNode->next->next = headNode;
+
+            // update
+            lastNode = headNode;
+            headNode = nextNode;
         }
         // when head = nullptr, back point to the last node
-        return back;
+        return lastNode;
     }
 };
 

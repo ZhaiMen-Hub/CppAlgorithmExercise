@@ -18,6 +18,25 @@ using namespace std;
 //     }
 // };
 
+// // DP
+// class Solution {
+// public:
+//     int maxProfit(vector<int>& prices) {
+
+//         // 状态: 日期x是否持有 最大利润
+//         // 兼容初始化：-1天买入等价于第一天持有，利润为-price[0]
+//         vector<vector<int>> dp(prices.size() + 1, vector<int>{0, -prices[0]});
+
+//         // 状态转移：无/有 x 无/有 四种情况
+//         for(int i = 0; i < prices.size(); i++) {
+//             dp[i + 1][0] = max(dp[i][0], dp[i][1] + prices[i]);
+//             dp[i + 1][1] = max(dp[i][1], dp[i][0] - prices[i]);
+//         }
+
+//         return dp.back()[0];
+//     }
+// };
+
 // DP
 class Solution {
 public:
@@ -25,15 +44,18 @@ public:
 
         // 状态: 日期x是否持有 最大利润
         // 兼容初始化：-1天买入等价于第一天持有，利润为-price[0]
-        vector<vector<int>> dp(prices.size() + 1, vector<int>{0, -prices[0]});
+        vector<int> dp{0, - prices[0]};
 
         // 状态转移：无/有 x 无/有 四种情况
+        int sell, buy;
         for(int i = 0; i < prices.size(); i++) {
-            dp[i + 1][0] = max(dp[i][0], dp[i][1] + prices[i]);
-            dp[i + 1][1] = max(dp[i][1], dp[i][0] - prices[i]);
+            sell = max(dp[0], dp[1] + prices[i]);
+            buy = max(dp[1], dp[0] - prices[i]);
+            dp[0] = sell;
+            dp[1] = buy;
         }
 
-        return dp.back()[0];
+        return dp[0];
     }
 };
 

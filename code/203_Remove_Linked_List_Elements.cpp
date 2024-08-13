@@ -32,33 +32,51 @@ void print_list(ListNode* head){
     cout << endl;
 }
 
+// class Solution {
+// public:
+//     ListNode* removeElements(ListNode* head, int val) {
+
+//         // a pointer to the head pointer
+//         ListNode** check_ptr = &head;
+        
+//         // delete or move to the next node if there exist one
+//         while(*check_ptr != nullptr){
+//             // delete
+//             if ((*check_ptr)->val == val){
+//                 ListNode* ptr_for_delete = *check_ptr;
+//                 *check_ptr = (*check_ptr)->next;
+//                 delete ptr_for_delete;
+//             }
+//             // move
+//             else{
+//                 check_ptr = & ((*check_ptr)->next);
+//             }
+//         }
+//         // return head ptr
+//         return head;
+
+
+
+//     }
+// };
+
 class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) {
 
-        // a pointer to the head pointer
-        ListNode** check_ptr = &head;
-        
-        // delete or move to the next node if there exist one
-        while(*check_ptr != nullptr){
-            // delete
-            if ((*check_ptr)->val == val){
-                ListNode* ptr_for_delete = *check_ptr;
-                *check_ptr = (*check_ptr)->next;
-                delete ptr_for_delete;
-            }
-            // move
-            else{
-                check_ptr = & ((*check_ptr)->next);
-            }
+        // 终止条件：空链表
+        if(head == nullptr) return nullptr;
+
+        // 递归调用: 检查/删除当前节点，然后递归
+        if(head->val == val) return removeElements(head->next, val);
+        else {
+            head->next = removeElements(head->next, val);
+            return head;
         }
-        // return head ptr
-        return head;
-
-
 
     }
 };
+
 
 // testing
 int main() {

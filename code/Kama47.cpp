@@ -48,7 +48,7 @@ int main(){
     // // for(int i = 0 ; i < N; i++) cout << vec[i].size() << endl;
     
     
-    // queue: value, point
+    // queue: pair {dis, point}
     priority_queue<pair<int, int>, deque<pair<int, int>> , greater<pair<int,int>>> q;
     // push {dis, index}
     q.push({0, 0});

@@ -4,21 +4,34 @@
 
 using namespace std;
 
+// class Solution {
+// public:
+//     vector<int> twoSum(vector<int>& nums, int target) {
+        
+//         // iterate and map
+//         int len = nums.size();
+//         unordered_map<int,int> hash_map;
+//         // vector<int> result;
+//         for (int i = 0; i < len; i++) {
+//             if (hash_map.find(target - nums[i]) != hash_map.end()) 
+//                 return vector<int>{hash_map[target - nums[i]], i}; 
+//             else
+//                 hash_map[nums[i]] = i;
+//         }
+//         return vector<int>{-1, -1};
+//     }
+// };
+
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        
-        // iterate and map
-        int len = nums.size();
-        unordered_map<int,int> hash_map;
-        // vector<int> result;
-        for (int i = 0; i < len; i++) {
-            if (hash_map.find(target - nums[i]) != hash_map.end()) 
-                return vector<int>{hash_map[target - nums[i]], i}; 
-            else
-                hash_map[nums[i]] = i;
+        unordered_map<int, int> hashMap;
+        for(int i = 0; i < nums.size(); i++) {
+            const auto& num = nums[i];
+            if(hashMap.find(target - num) != hashMap.end()) return {hashMap[target - num], i};
+            else hashMap[num] = i;
         }
-        return vector<int>{-1, -1};
+        return {-1, -1};
     }
 };
 
